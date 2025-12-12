@@ -121,6 +121,7 @@ def fetch_pending_records(conn):
                 FROM products_ai
                 WHERE prompt_veo3 IS NULL AND image_status = TRUE
                 ORDER BY id ASC
+                LIMIT 30
             """)
             return cur.fetchall()
     except Exception as e:
@@ -303,7 +304,7 @@ async def process_records_with_api(client, conn, limit_records=None):
             # Wait before next request to avoid rate limits
             if idx < len(records):
                 print(f"\n⏳ Waiting 15 seconds before next record...\n")
-                await asyncio.sleep(15)
+                await asyncio.sleep(25)
 
 
 async def main():
